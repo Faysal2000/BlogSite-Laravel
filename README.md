@@ -21,7 +21,7 @@ Eloquent ORM – Database handling
 
 (```)
 
-(``git clone https://github.com/your-username/blog-project.git``)  
+(``git clone https://github.com/your-username/blog-project.git`)  
 cd BlogSite-Laravel  
 
 2-Install dependencies:  
