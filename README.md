@@ -15,6 +15,43 @@ Bootstrap – UI design
 Blade – Laravel's template engine  
 Eloquent ORM – Database handling  
 
+## 📦 Installation  
+
+1-Clone the repository:  
+
+git clone https://github.com/your-username/blog-project.git  
+cd BlogSite-Laravel  
+
+2-Install dependencies:  
+composer install  
+
+3-Create the .env file and update database credentials:  
+
+cp .env.example .env  
+
+4-Set up Laravel configuration:  
+
+php artisan key:generate   
+php artisan migrate  
+php artisan serve  
+
+5-The project will be available at http://127.0.0.1:8000.  
+
+
+## 🏗 Database Setup  
+
+php artisan migrate --seed  
+
+
+## 📜 API Support (Optional)  
+If API support is enabled, the following endpoints are available:  
+
+GET /api/posts – Retrieve all posts  
+GET /api/posts/{id} – Get a specific post  
+POST /api/posts – Create a new post  
+PUT /api/posts/{id} – Update a post  
+DELETE /api/posts/{id} – Delete a post  
+
 
 
 ## MAIN PAGE
