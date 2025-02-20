@@ -4,87 +4,144 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Models\User;
 
 class PostController extends Controller
 {
     public function index()
     {
 
+
         //select * from posts;
         //id, title (Var char), description(TEXT), created_at, updated_at
 
-        $allPosts = [
-            ['id' => 1, 'title' => 'Php', 'posted_by' => 'Faysal', 'created_at' => '2025-01-22 16:15'],
-            ['id' => 2, 'title' => 'html', 'posted_by' => 'Osman', 'created_at' => '2024-05-03 23:45'],
-            ['id' => 3, 'title' => 'css', 'posted_by' => 'ahmet', 'created_at' => '2024-12-12 19:35'],
-            ['id' => 4, 'title' => 'python', 'posted_by' => 'muhammet', 'created_at' => '2024-07-04 20:35'],
-            ['id' => 5, 'title' => 'java', 'posted_by' => 'ramazan', 'created_at' => '2025-01-11 12:15'],
-            ['id' => 6, 'title' => 'JavaScript', 'posted_by' => 'halil', 'created_at' => '2025-03-18 15:35'],
-            ['id' => 7, 'title' => 'C#', 'posted_by' => 'mahmut', 'created_at' => '2024-02-23 17:50'],
+        $postsFromDB = Post::all(); //collaction object
 
-        ];
-        return view('index', ['posts' => $allPosts]);
+        return view('index', ['posts' => $postsFromDB]);
     }
 
-    public function show($postId)
+    public function show(Post $post)
     {
 
-        $singlePost = [
+        //$singlePostFromDB = Post::where('id', $postId);
+
+
+        //   $singlePostFromDB = Post::findOrFail($postId); //model object 
+        //dd($singlePostFromDB);
+        /* $singlePost = [
             'id' => 1,
             'title' => 'Php',
             'posted_by' => 'Faysal',
             'description' => 'dfdfds',
             'created_at' => '2025-01-22 16:15'
 
-        ];
-        return view('show', ['post' => $singlePost]);
+        ];*/
+        return view('show', ['post' => $post]);
     }
 
     public function create()
     {
-        return view('posts.create');
+
+        //select * from users;
+        $users = User::all();
+        return view('posts.create', ['users' => $users]);
     }
     public function store()
     {
+
+        request()->validate([
+            'title' => ['required', 'min:3'],
+            'description' => ['required', 'min:5'],
+            'post_creator' => ['required', 'exists:users,id'],
+        ]);
+
         //        $request = request();
         //
         //        dd($request->title, $request->all());
+
         //1- get the user data
         $data = request()->all();
+
         $title = request()->title;
         $description = request()->description;
         $postCreator = request()->post_creator;
+
         //        dd($data, $title, $description, $postCreator);
-        //2- store the user data in database
+
+        //2- store the submitted data in database
+        //        $post = new Post;
+        //
+        //        $post->title = $title;
+        //        $post->description = $description;
+        //
+        //        $post->save();// insert into posts ('t','d')
+
+        Post::create([
+            'title' => $title,
+            'description' => $description,
+            'xyz' => 'some value', //ignore,
+            'user_id' => $postCreator,
+        ]);
+
         //3- redirection to posts.index
         return to_route('posts.index');
     }
 
 
-    public function edit()
+    public function edit(Post $post)
     {
-        return view('posts.edit');
+
+        //select * from users;
+        $users = User::all();
+
+        return view('posts.edit', ['users' => $users, 'post' => $post]);
     }
 
 
 
-    public function update()
+    public function update($postId)
     {
+
+
         //1- get the user data
+
         $title = request()->title;
         $description = request()->description;
         $postCreator = request()->post_creator;
-        //dd($title, $description, $postCreator);
-        //2- update the user data in database
+
+        //        dd($title, $description, $postCreator);
+
+        //2- update the submitted data in database
+        //select or find the post
+        //update the post data
+        $singlePostFromDB = Post::find($postId);
+        $singlePostFromDB->update([
+            'title' => $title,
+            'description' => $description,
+            'user_id' => $postCreator,
+        ]);
+
+        //        dd($singlePostFromDB);
+
         //3- redirection to posts.show
-        return to_route('posts.show', 1);
+
+        return to_route('posts.show', $postId);
     }
 
 
-    public function destroy()
+
+
+    public function destroy($postId)
     {
-        //1- delete the post from database
-        //2- redirect to posts.index
+        // Post'u bul ve varsa sil
+        $post = Post::find($postId);
+
+        if ($post) {
+            $post->delete();
+        }
+
+        // Silme işleminden sonra listeye yönlendir
         return to_route('posts.index');
     }
 }
