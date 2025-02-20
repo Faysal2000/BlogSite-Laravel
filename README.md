@@ -2,18 +2,18 @@
 This project is a simple blog site built using Laravel and MySQL. Users can create, edit, delete, and view blog posts.
 
 ## 🚀 Features
-📝 Create, edit, and delete blog posts
-👥 User authentication (Auth)
-📌 List all blog posts
-🔎 View individual blog posts
-🎨 Blade Template Engine for a clean UI
+📝 Create, edit, and delete blog posts  
+👥 User authentication (Auth)  
+📌 List all blog posts  
+🔎 View individual blog posts  
+🎨 Blade Template Engine for a clean UI  
 
-## 🛠 Technologies Used
-Laravel – PHP framework
-MySQL – Database management
-Bootstrap – UI design
-Blade – Laravel's template engine
-Eloquent ORM – Database handling
+## 🛠 Technologies Used  
+Laravel – PHP framework  
+MySQL – Database management  
+Bootstrap – UI design  
+Blade – Laravel's template engine  
+Eloquent ORM – Database handling  
 
 
 
