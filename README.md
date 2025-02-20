@@ -19,9 +19,7 @@ Eloquent ORM – Database handling
 
 1-Clone the repository:  
 
-(```)
-
-(`git clone https://github.com/your-username/blog-project.git``)  
+git clone https://github.com/your-username/blog-project.git  
 cd BlogSite-Laravel  
 
 2-Install dependencies:  
